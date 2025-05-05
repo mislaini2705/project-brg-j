@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Pemesanan Makanan</title>
+</head>
+<body>
+    <form id="formPemesanan">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nama Makanan</th>
+                    <th>Harga</th>
+                    <th>Jumlah</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="item">
+                    <td><input type="text" class="nama" value="Ayam Geprek" readonly></td>
+                    <td class="harga" data-harga="12000">Rp12.000</td>
+                    <td><input type="number" class="jumlah" value="1" min="1"></td>
+                </tr>
+                <tr class="item">
+                    <td><input type="text" class="nama" value="Nasi Goreng" readonly></td>
+                    <td class="harga" data-harga="15000">Rp15.000</td>
+                    <td><input type="number" class="jumlah" value="1" min="1"></td>
+                </tr>
+                <tr class="item">
+                    <td><input type="text" class="nama" value="Jus Jeruk" readonly></td>
+                    <td class="harga" data-harga="8000">Rp8.000</td>
+                    <td><input type="number" class="jumlah" value="1" min="1"></td>
+                </tr>
+                <tr class="item">
+                    <td><input type="text" class="nama" value="Es Teh" readonly></td>
+                    <td class="harga" data-harga="5000">Rp5.000</td>
+                    <td><input type="number" class="jumlah" value="1" min="1"></td>
+                </tr>
+                <tr class="item">
+                    <td><input type="text" class="nama" value="Air Mineral" readonly></td>
+                    <td class="harga" data-harga="5000">Rp5.000</td>
+                    <td><input type="number" class="jumlah" value="1" min="1"></td>
+                </tr>
+            </tbody>
+        </table>
+        <button type="button" id="hitungTotal">Hitung Total</button>
+        <div id="totalPemesanan">Total Pemesanan: Rp0</div>
+    </form>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#hitungTotal").click(function() {
+                let total = 0;
+                $(".item").each(function() {
+                    let harga = parseInt($(this).find(".harga").data("harga"));
+                    let jumlah = parseInt($(this).find(".jumlah").val());
+                    total += harga * jumlah;
+                });
+                $("#totalPemesanan").text("Total Pemesanan: Rp" + total.toLocaleString());
+            });
+
+            $(".jumlah").on("input", function() {
+                let itemRow = $(this).closest(".item");
+                let harga = parseInt(itemRow.find(".harga").data("harga"));
+                let jumlah = parseInt($(this).val());
+                let totalItem = harga * jumlah;
+                // Anda bisa menambahkan logika di sini untuk menampilkan total per item jika diperlukan
+            });
+        });
+    </script>
+
+</body>
+</html>
